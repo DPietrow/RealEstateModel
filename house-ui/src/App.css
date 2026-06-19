@@ -56,14 +56,13 @@ html, body {
 
 /* BIGGER PROFILE IMAGE */
 .profileCard img {
-  width: 160px;
-  height: 160px;
+  width: 170px;
+  height: 210px;
   border-radius: 18px;
   object-fit: cover;
+  object-position: center 20%; /* 👈 key trick */
 
   border: 2px solid #1f2937;
-
-  /* subtle SaaS polish */
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
