@@ -1,5 +1,5 @@
 # models
-backend/model/*.pkl
+backend/model/house_price_model.pkl
 
 # dataset
 source/*.csv
