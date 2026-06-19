@@ -1,0 +1,9 @@
+# models
+backend/model/*.pkl
+
+# dataset
+source/*.csv
+
+# large files
+*.zip
+*.pkl
