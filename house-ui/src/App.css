@@ -36,34 +36,46 @@ html, body {
   margin-top: -10px;
 }
 
+/* PROFILE CARD (slightly larger, still clean SaaS style) */
 .profileCard {
   background: #111827;
-  padding: 16px;
-  border-radius: 12px;
+  padding: 18px;
+  border-radius: 14px;
   border: 1px solid #1f2937;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 10px;
+
+  gap: 12px;
+
+  /* subtle scale up without overwhelming sidebar */
+  transform: scale(1.02);
 }
 
+/* BIGGER PROFILE IMAGE */
 .profileCard img {
-  width: 120px;
-  height: 120px;
-  border-radius: 16px;
+  width: 160px;
+  height: 160px;
+  border-radius: 18px;
   object-fit: cover;
+
   border: 2px solid #1f2937;
+
+  /* subtle SaaS polish */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
+/* TEXT BALANCE */
 .profileCard h4 {
   margin: 0;
+  font-size: 16px;
 }
 
 .profileCard p {
   margin: 0;
-  font-size: 12px;
+  font-size: 13px;
   color: #94a3b8;
 }
 

@@ -80,7 +80,7 @@ export default function App() {
           <h2>Real Estate AI</h2>
           <p>ML Pricing Engine</p>
         </div>
-        
+
         {/* PROFILE CARD */}
         <div className="profileCard">
           <img src="/portrait2.jpg" alt="profile" />
@@ -89,7 +89,7 @@ export default function App() {
             <p>Enterprise Architect</p>
           </div>
         </div>
-        
+
         {/* ABOUT ME */}
         <div className="aboutCard">
           <h4>About Me</h4>
@@ -99,7 +99,7 @@ export default function App() {
             If my work here interests you and you have a related opening, please feel free to reach out to me!
           </p>
         </div>
-        
+
         {/* LINKS */}
         <div className="links">
           <a href="https://github.com/DPietrow/RealEstateModel/tree/dev">GitHub</a>
@@ -148,7 +148,8 @@ export default function App() {
           <h3>About this Model</h3>
           <p>
             LightGBM regression model with feature engineering including geographic clustering,
-            target encoding, and log-transformed price prediction.
+            target encoding, and log-transformed price prediction deployed on a stack of React
+            and Python Flask API. Try it out and see how close I get to your home evaluation!
           </p>
         </div>
       </div>
