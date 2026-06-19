@@ -92,11 +92,11 @@ export default function App() {
   </div>
 
   {/* LINKS */}
-  <a style={styles.link} href="https://github.com/DPietrow/RealEstateModel">
+  <a style={styles.link} href="https://github.com/DPietrow/RealEstateModel/tree/dev">
     My GitHub
   </a>
 
-  <a style={styles.link} href="https://www.linkedin.com" target="_blank">
+  <a style={styles.link} href="https://www.linkedin.com/in/david-pietrow/" target="_blank">
     My LinkedIn
   </a>
 
