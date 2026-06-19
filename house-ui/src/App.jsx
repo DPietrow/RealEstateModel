@@ -74,243 +74,101 @@ export default function App() {
   return (
     <div className="app">
 
-     {/* ================= LEFT SIDEBAR ================= */}
-<div className="sidebar">
-  <h2>David Pietrow</h2>
-
-  {/* PORTRAIT */}
-  <img src="/portrait2.jpg" style={styles.avatar} />
-
-  {/* ABOUT ME SECTION */}
-  <div style={styles.aboutBox}>
-    <h4 style={{ marginBottom: "8px" }}>About Me</h4>
-
-    <p style={{ fontSize: "13px", color: "#aaa", lineHeight: "1.5" }}>
-      I’m currently an Enterprise Architect exploring new opportunies, 
-      ideally in a technical delivery AI/ML role such as a Forward Deployment Engineer or Solution Architect. If my work here
-      interests you and you have a related opening, please feel free to reach out to me!
-    </p>
-  </div>
-
-  {/* LINKS */}
-  <a style={styles.link} href="https://github.com/DPietrow/RealEstateModel/tree/dev" target="_blank">
-    My GitHub
-  </a>
-
-  <a style={styles.link} href="https://www.linkedin.com/in/david-pietrow/" target="_blank">
-    My LinkedIn
-  </a>
-
-  <a style={styles.link} href="https://linktr.ee" target="_blank">
-    You can find my other projects here
-  </a>
-</div>
-
-      {/* ================= MAIN CENTER ================= */}
-<div className="main">
-  
-  {/* FORM CARD */}
-  <div style={styles.card}>
-    <h2>House Price Predictor</h2>
-
-    <input
-      name="bed"
-      placeholder="Beds"
-      value={form.bed}
-      onChange={handleChange}
-    />
-
-    <input
-      name="bath"
-      placeholder="Baths"
-      value={form.bath}
-      onChange={handleChange}
-    />
-
-    <input
-      name="house_size"
-      placeholder="House Size"
-      value={form.house_size}
-      onChange={handleChange}
-    />
-
-    <input
-      name="acre_lot"
-      placeholder="Acre Lot"
-      value={form.acre_lot}
-      onChange={handleChange}
-    />
-
-    <input
-      name="zip_code"
-      placeholder="ZIP Code"
-      value={form.zip_code}
-      onChange={handleChange}
-    />
-
-    <button onClick={handleSubmit} disabled={loading}>
-      {loading ? "Predicting..." : "Predict Price"}
-    </button>
-  </div>
-
-  {/* PROJECT DESCRIPTION CARD (SEPARATE) */}
-  <div style={styles.descriptionCard}>
-    <h3> About This Project</h3>
-
-    <p style={{ color: "#aaa", lineHeight: "1.6", fontSize: "14px" }}>
-      This machine learning system predicts real estate prices using a LightGBM regression model.
-      It includes advanced feature engineering such as geographic clustering, target encoding,
-      and log-transformed price prediction for improved accuracy. 
-      Try it out and see how close I am to your home evaluation!
-    </p>
-
-    <p style={{ color: "#777", fontSize: "13px", marginTop: "10px" }}>
-      Built as a full-stack project with React frontend + Flask backend API.
-    </p>
-  </div>
-
-</div>
-      {/* ================= RIGHT SIDEBAR (HISTORY) ================= */}
-      <div className="rightSidebar">
-        <h3>Predictions + History </h3>
-
-        {history.length === 0 && (
-          <p style={{ color: "#777" }}>No predictions yet</p>
-        )}
-
-        {history.map((item) => (
-          <div key={item.id} style={styles.historyItem}>
-            <div style={{ fontWeight: "bold" }}>
-              ${Number(item.price).toLocaleString()}
-            </div>
-            <div style={{ fontSize: "12px", color: "#aaa" }}>
-              {item.confidence}% confidence
-            </div>
+      {/* LEFT NAV */}
+      <div className="sidebar">
+        <div className="brand">
+          <h2>Real Estate AI</h2>
+          <p>ML Pricing Engine</p>
+        </div>
+        
+        {/* PROFILE CARD */}
+        <div className="profileCard">
+          <img src="/portrait2.jpg" alt="profile" />
+          <div>
+            <h4>David Pietrow</h4>
+            <p>Enterprise Architect</p>
           </div>
-        ))}
+        </div>
+        
+        {/* ABOUT ME */}
+        <div className="aboutCard">
+          <h4>About Me</h4>
+          <p>
+            I’m currently an Enterprise Architect exploring new opportunies,
+            ideally in a technical delivery AI/ML role such as a Forward Deployment Engineer or Solution Architect.
+            If my work here interests you and you have a related opening, please feel free to reach out to me!
+          </p>
+        </div>
+        
+        {/* LINKS */}
+        <div className="links">
+          <a href="https://github.com/DPietrow/RealEstateModel/tree/dev">GitHub</a>
+          <a href="https://www.linkedin.com/in/david-pietrow/">LinkedIn</a>
+        </div>
+      </div>
 
+      {/* MAIN */}
+      <div className="main">
+
+        {/* HERO INPUT CARD */}
+        <div className="card hero">
+          <h2>House Price Predictor</h2>
+
+          <div className="grid">
+            <input name="bed" placeholder="Beds" value={form.bed} onChange={handleChange} />
+            <input name="bath" placeholder="Baths" value={form.bath} onChange={handleChange} />
+            <input name="house_size" placeholder="House Size" value={form.house_size} onChange={handleChange} />
+            <input name="acre_lot" placeholder="Acre Lot" value={form.acre_lot} onChange={handleChange} />
+            <input name="zip_code" placeholder="ZIP Code" value={form.zip_code} onChange={handleChange} />
+          </div>
+
+          <button onClick={handleSubmit} disabled={loading}>
+            {loading ? "Predicting..." : "Predict Price"}
+          </button>
+        </div>
+
+        {/* RESULT CARD */}
         {result && (
-          <div style={styles.currentResult}>
-            <h4>Latest</h4>
-            <div style={{ color: "#4ade80", fontSize: "18px" }}>
+          <div className="card resultCard">
+            <h3>Prediction</h3>
+            <div className="price">
               ${Number(result).toLocaleString()}
             </div>
-            <div style={styles.barOuter}>
-              <div
-                style={{
-                  ...styles.barInner,
-                  width: `${confidence}%`
-                }}
-              />
+
+            <div className="bar">
+              <div style={{ width: `${confidence}%` }} />
             </div>
+
+            <p className="muted">{confidence}% model confidence</p>
           </div>
         )}
+
+        {/* DESCRIPTION */}
+        <div className="card">
+          <h3>About this Model</h3>
+          <p>
+            LightGBM regression model with feature engineering including geographic clustering,
+            target encoding, and log-transformed price prediction.
+          </p>
+        </div>
       </div>
+
+      {/* RIGHT PANEL */}
+      <div className="right">
+        <h3>Recent Predictions</h3>
+
+        {history.length === 0 && (
+          <p className="muted">No predictions yet</p>
+        )}
+
+        {history.map((h) => (
+          <div key={h.id} className="historyItem">
+            <div>${Number(h.price).toLocaleString()}</div>
+            <span>{h.confidence}%</span>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 }
-
-/* ================= STYLES ================= */
-const styles = {
-  app: {
-    display: "flex",
-    height: "100vh",
-    width: "100vw",
-    backgroundColor: "#0f0f10",
-    color: "white",
-    fontFamily: "Arial"
-  },
-  descriptionCard: {
-  width: "100%",
-  maxWidth: "750px",
-  backgroundColor: "#1c1c1c",
-  padding: "20px",
-  borderRadius: "14px",
-  color: "white",
-  marginTop: "20px"
-},
-aboutBox: {
-  backgroundColor: "#222",
-  padding: "12px",
-  borderRadius: "10px",
-  marginTop: "10px",
-  marginBottom: "10px"
-},
-
-  sidebar: {
-    width: "260px",
-    backgroundColor: "#171717",
-    padding: "20px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px"
-  },
-
-  rightSidebar: {
-    width: "280px",
-    backgroundColor: "#171717",
-    padding: "20px",
-    overflowY: "auto"
-  },
-
-  main: {
-  flex: 1,
-  display: "flex",
-  flexDirection: "column",   // 🔥 THIS FIXES IT
-  alignItems: "center",
-  padding: "30px",
-  gap: "20px"
-},
-
-  card: {
-    width: "100%",
-    maxWidth: "750px",
-    backgroundColor: "#1c1c1c",
-    padding: "28px",
-    borderRadius: "14px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px"
-  },
-
-  link: {
-    backgroundColor: "#333",
-    padding: "10px",
-    borderRadius: "8px",
-    color: "white",
-    textDecoration: "none",
-    textAlign: "center"
-  },
-
-  avatar: {
-    width: "100%",
-    borderRadius: "12px"
-  },
-
-  historyItem: {
-    backgroundColor: "#222",
-    padding: "10px",
-    borderRadius: "8px",
-    marginTop: "8px"
-  },
-
-  currentResult: {
-    marginTop: "20px",
-    padding: "12px",
-    backgroundColor: "#222",
-    borderRadius: "8px"
-  },
-
-  barOuter: {
-    height: "6px",
-    backgroundColor: "#333",
-    borderRadius: "4px",
-    marginTop: "6px"
-  },
-
-  barInner: {
-    height: "100%",
-    backgroundColor: "#4ade80",
-    borderRadius: "4px"
-  }
-};
