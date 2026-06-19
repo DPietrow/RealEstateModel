@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:5000";
 
 export default function App() {
   const [form, setForm] = useState({
@@ -32,7 +33,7 @@ export default function App() {
         zip_code: form.zip_code
       };
 
-      const res = await fetch("http://127.0.0.1:5000/predict", {
+      const res = await fetch(`${API_URL}/predict`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
