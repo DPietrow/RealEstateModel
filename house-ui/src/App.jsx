@@ -72,10 +72,10 @@ export default function App() {
   };
 
   return (
-    <div style={styles.app}>
+    <div className="app">
 
      {/* ================= LEFT SIDEBAR ================= */}
-<div style={styles.sidebar}>
+<div className="sidebar">
   <h2>David Pietrow</h2>
 
   {/* PORTRAIT */}
@@ -107,7 +107,7 @@ export default function App() {
 </div>
 
       {/* ================= MAIN CENTER ================= */}
-<div style={styles.main}>
+<div className="main">
   
   {/* FORM CARD */}
   <div style={styles.card}>
@@ -171,7 +171,7 @@ export default function App() {
 
 </div>
       {/* ================= RIGHT SIDEBAR (HISTORY) ================= */}
-      <div style={styles.rightSidebar}>
+      <div className="rightSidebar">
         <h3>Predictions + History </h3>
 
         {history.length === 0 && (
