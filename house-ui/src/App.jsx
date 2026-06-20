@@ -15,6 +15,11 @@ export default function App() {
   const [confidence, setConfidence] = useState(null);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("theme")
+      ? localStorage.getItem("theme") === "dark"
+      : true
+  );
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -72,7 +77,7 @@ export default function App() {
   };
 
   return (
-    <div className="app">
+    <div className={`app ${darkMode ? "dark" : "light"}`}>
 
       {/* LEFT NAV */}
       <div className="sidebar">
@@ -109,7 +114,20 @@ export default function App() {
 
       {/* MAIN */}
       <div className="main">
-
+        <div className="themeToggle">
+          <button
+            className="themeButton"
+            onClick={() => {
+            const next = !darkMode;
+            setDarkMode(next);
+            localStorage.setItem("theme", next ? "dark" : "light");
+              }}
+          >
+            {darkMode
+            ? "☀️ Switch to Light Mode"
+            : "🌙 Switch to Dark Mode"}
+          </button>
+        </div>
         {/* HERO INPUT CARD */}
         <div className="card hero">
           <h2>House Price Predictor</h2>

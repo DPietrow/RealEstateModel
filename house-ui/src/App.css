@@ -184,6 +184,104 @@ button:disabled {
   font-size: 13px;
 }
 
+.themeToggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.themeButton {
+  width: 240px;
+  padding: 12px 20px;
+
+  border-radius: 999px;
+
+  border: 1px solid #334155;
+
+  background: #111827;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.themeButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+/* DARK MODE */
+.app.dark {
+  background: #0b0f19;
+  color: white;
+}
+
+/* LIGHT MODE */
+.app.light {
+  background: #f5f7fb;
+  color: #111827;
+}
+
+/* ---------- DARK ---------- */
+
+.app.dark .sidebar,
+.app.dark .right {
+  background: #0f172a;
+}
+
+.app.dark .card,
+.app.dark .profileCard,
+.app.dark .aboutCard,
+.app.dark .historyItem {
+  background: #111827;
+  border: 1px solid #1f2937;
+}
+
+.app.dark input {
+  background: #0b1220;
+  color: white;
+  border: 1px solid #334155;
+}
+
+/* ---------- LIGHT ---------- */
+
+.app.light .sidebar,
+.app.light .right {
+  background: #e5e7eb;
+}
+
+.app.light .card,
+.app.light .profileCard,
+.app.light .aboutCard,
+.app.light .historyItem {
+  background: white;
+  border: 1px solid #d1d5db;
+}
+
+.app.light input {
+  background: white;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.app.light .muted {
+  color: #6b7280;
+}
+
+.app.light .links a {
+  color: #2563eb;
+}
+
+.app.light .themeButton {
+  background: white;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
   .app {
