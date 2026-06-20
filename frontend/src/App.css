@@ -1,21 +1,340 @@
-input {
-  display: block;
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  min-height: 100%;
 }
 
-button {
-  padding: 10px 15px;
-  border: none;
-  background: #007bff;
+body {
+  overflow-x: hidden;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+/* FORCE FULL EDGE LAYOUT */
+.app {
+  display: flex;
+  min-height: 100dvh;
+  width: 100%;
+  margin: 0;
+}
+
+/* LEFT SIDEBAR */
+.sidebar {
+  width: 260px;
+  background: #0f172a;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.brand p {
+  color: #94a3b8;
+  margin-top: -10px;
+}
+
+/* PROFILE CARD (slightly larger, still clean SaaS style) */
+.profileCard {
+  background: #111827;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid #1f2937;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  gap: 12px;
+
+  /* subtle scale up without overwhelming sidebar */
+  transform: scale(1.02);
+}
+
+/* BIGGER PROFILE IMAGE */
+.profileCard img {
+  width: 170px;
+  height: 210px;
+  border-radius: 18px;
+  object-fit: cover;
+  object-position: center 20%; /* 👈 key trick */
+
+  border: 2px solid #1f2937;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* TEXT BALANCE */
+.profileCard h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.profileCard p {
+  margin: 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.links a {
+  display: block;
+  color: #93c5fd;
+  text-decoration: none;
+  margin: 6px 0;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+/* RIGHT */
+.right {
+  width: 280px;
+  background: #0f172a;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* CARDS */
+.card {
+  background: #111827;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid #1f2937;
+}
+
+/* HERO */
+.hero {
+  padding: 24px;
+}
+
+/* GRID INPUTS */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+/* INPUTS */
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #0b1220;
   color: white;
-  border-radius: 6px;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #22c55e;
+  color: black;
+  font-weight: bold;
   cursor: pointer;
 }
 
 button:disabled {
-  background: #999;
+  opacity: 0.5;
+}
+
+/* RESULT */
+.resultCard .price {
+  font-size: 28px;
+  margin: 10px 0;
+  color: #22c55e;
+}
+
+.bar {
+  height: 6px;
+  background: #1f2937;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar div {
+  height: 100%;
+  background: #22c55e;
+}
+
+/* HISTORY */
+.historyItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #111827;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+/* TEXT */
+.muted {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.themeToggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.themeButton {
+  width: 240px;
+  padding: 12px 20px;
+
+  border-radius: 999px;
+
+  border: 1px solid #334155;
+
+  background: #111827;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.themeButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+/* DARK MODE */
+.app.dark {
+  background: #0b0f19;
+  color: white;
+}
+
+/* LIGHT MODE */
+.app.light {
+  background: #f5f7fb;
+  color: #111827;
+}
+
+/* ---------- DARK ---------- */
+
+.app.dark .sidebar,
+.app.dark .right {
+  background: #0f172a;
+}
+
+.app.dark .card,
+.app.dark .profileCard,
+.app.dark .aboutCard,
+.app.dark .historyItem {
+  background: #111827;
+  border: 1px solid #1f2937;
+}
+
+.app.dark input {
+  background: #0b1220;
+  color: white;
+  border: 1px solid #334155;
+}
+
+/* ---------- LIGHT ---------- */
+
+.app.light .sidebar,
+.app.light .right {
+  background: #e5e7eb;
+}
+
+.app.light .card,
+.app.light .profileCard,
+.app.light .aboutCard,
+.app.light .historyItem {
+  background: white;
+  border: 1px solid #d1d5db;
+}
+
+.app.light input {
+  background: white;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.app.light .muted {
+  color: #6b7280;
+}
+
+.app.light .links a {
+  color: #2563eb;
+}
+
+.app.light .themeButton {
+  background: white;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.app.light .brand h2,
+.app.light .hero h2,
+.app.light .card h3,
+.app.light .right h3 {
+  color: #0f172a;   /* slate-900 */
+}
+
+.app.dark .brand h2,
+.app.dark .hero h2,
+.app.dark .card h3,
+.app.dark .right h3 {
+  color: #ffffff;
+}
+
+.app.light .brand p {
+  color: #475569;   /* slate-600 */
+}
+
+.brand h2,
+.hero h2,
+.card h3,
+.right h3 {
+  margin: 0;
+  color: inherit;
+}
+
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .sidebar,
+  .main,
+  .right {
+    width: 100%;
+  }
+
+  .sidebar,
+  .main,
+  .right {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

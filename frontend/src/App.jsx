@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
- 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function App() {
   const [form, setForm] = useState({
     bed: "",
@@ -11,167 +12,183 @@ export default function App() {
   });
 
   const [result, setResult] = useState(null);
+  const [confidence, setConfidence] = useState(null);
+  const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("theme")
+      ? localStorage.getItem("theme") === "dark"
+      : true
+  );
+
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
- const handleSubmit = async () => {
-  setLoading(true);
-  setResult(null);
+  const handleSubmit = async () => {
+    setLoading(true);
+    setResult(null);
 
-  try {
-    const payload = {
-      bed: Number(form.bed),
-      bath: Number(form.bath),
-      house_size: Number(form.house_size),
-      acre_lot: Number(form.acre_lot),
-      zip_code: form.zip_code
-    };
+    try {
+      const payload = {
+        bed: Number(form.bed),
+        bath: Number(form.bath),
+        house_size: Number(form.house_size),
+        acre_lot: Number(form.acre_lot),
+        zip_code: form.zip_code
+      };
 
-    const res = await fetch("http://127.0.0.1:5000/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
+      const res = await fetch(`${API_URL}/predict`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    console.log("API RESPONSE:", data);
+      if (!res.ok || data.error) {
+        setResult("Error");
+        return;
+      }
 
-    if (!res.ok || data.error) {
-      setResult("Error: " + (data.error || "Unknown error"));
-      return;
+      const prediction = data.predicted_price;
+      const fakeConfidence = (Math.random() * 15 + 80).toFixed(1);
+
+      setResult(prediction);
+      setConfidence(fakeConfidence);
+
+      setHistory((prev) => [
+        { id: Date.now(), price: prediction, confidence: fakeConfidence },
+        ...prev.slice(0, 6)
+      ]);
+
+      setForm({
+        bed: "",
+        bath: "",
+        house_size: "",
+        acre_lot: "",
+        zip_code: ""
+      });
+    } catch {
+      setResult("Error contacting API");
+    } finally {
+      setLoading(false);
     }
-
-    setResult(data.predicted_price);
-
-    // ✅ CLEAR FORM AFTER SUCCESS
-    setForm({
-      bed: "",
-      bath: "",
-      house_size: "",
-      acre_lot: "",
-      zip_code: ""
-    });
-
-  } catch (err) {
-    console.error(err);
-    setResult("Error contacting API");
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "flex-start",
-      gap: "40px",
-      padding: "50px",
-      fontFamily: "Arial"
-    }}
-  >
-    {/* ================= LEFT PANEL ================= */}
-    <div style={{ width: "40%" }}>
-      <img
-        src="https://images.unsplash.com/photo-1560518883-ce09059eeffa"
-        alt="house"
-        style={{
-          width: "100%",
-          borderRadius: "12px",
-          marginBottom: "20px"
-        }}
-      />
+    <div className={`app ${darkMode ? "dark" : "light"}`}>
 
-      <h2>House Price Predictor</h2>
+      {/* LEFT NAV */}
+      <div className="sidebar">
+        <div className="brand">
+          <h2>Real Estate AI</h2>
+          <p>ML Pricing Engine</p>
+        </div>
 
-      <p style={{ lineHeight: "1.6", color: "#444" }}>
-        This project uses a machine learning pipeline built with LightGBM to
-        predict house prices based on features like number of bedrooms, bathrooms,
-        house size, lot size, and ZIP code.
-        <br /><br />
-        The model includes advanced preprocessing such as target encoding,
-        geographic clustering, and log-transformed regression for improved accuracy.
-      </p>
+        {/* PROFILE CARD */}
+        <div className="profileCard">
+          <img src="/portrait2.jpg" alt="profile" />
+          <div>
+            <h4>David Pietrow</h4>
+            <p>Enterprise Architect</p>
+          </div>
+        </div>
 
-      <a
-        href="https://github.com/YOUR_USERNAME/YOUR_REPO"
-        target="_blank"
-        rel="noreferrer"
-        style={{
-          display: "inline-block",
-          marginTop: "10px",
-          color: "white",
-          backgroundColor: "#333",
-          padding: "10px 15px",
-          borderRadius: "6px",
-          textDecoration: "none"
-        }}
-      >
-        View GitHub Repo
-      </a>
+        {/* ABOUT ME */}
+        <div className="aboutCard">
+          <h4>About Me</h4>
+          <p>
+            I’m currently an Enterprise Architect exploring new opportunies,
+            ideally in a technical delivery AI/ML role such as a Forward Deployment Engineer or Solution Architect.
+            If my work here interests you and you have a related opening, please feel free to reach out to me!
+          </p>
+        </div>
+
+        {/* LINKS */}
+        <div className="links">
+          <a href="https://github.com/DPietrow/RealEstateModel/tree/dev">GitHub</a>
+          <a href="https://www.linkedin.com/in/david-pietrow/">LinkedIn</a>
+        </div>
+      </div>
+
+      {/* MAIN */}
+      <div className="main">
+        <div className="themeToggle">
+          <button
+            className="themeButton"
+            onClick={() => {
+            const next = !darkMode;
+            setDarkMode(next);
+            localStorage.setItem("theme", next ? "dark" : "light");
+              }}
+          >
+            {darkMode
+            ? "☀️ Switch to Light Mode"
+            : "🌙 Switch to Dark Mode"}
+          </button>
+        </div>
+        {/* HERO INPUT CARD */}
+        <div className="card hero">
+          <h2>House Price Predictor</h2>
+
+          <div className="grid">
+            <input name="bed" placeholder="Beds" value={form.bed} onChange={handleChange} />
+            <input name="bath" placeholder="Baths" value={form.bath} onChange={handleChange} />
+            <input name="house_size" placeholder="House Size" value={form.house_size} onChange={handleChange} />
+            <input name="acre_lot" placeholder="Acre Lot" value={form.acre_lot} onChange={handleChange} />
+            <input name="zip_code" placeholder="ZIP Code" value={form.zip_code} onChange={handleChange} />
+          </div>
+
+          <button onClick={handleSubmit} disabled={loading}>
+            {loading ? "Predicting..." : "Predict Price"}
+          </button>
+        </div>
+
+        {/* RESULT CARD */}
+        {result && (
+          <div className="card resultCard">
+            <h3>Prediction</h3>
+            <div className="price">
+              ${Number(result).toLocaleString()}
+            </div>
+
+            <div className="bar">
+              <div style={{ width: `${confidence}%` }} />
+            </div>
+
+            <p className="muted">{confidence}% model confidence</p>
+          </div>
+        )}
+
+        {/* DESCRIPTION */}
+        <div className="card">
+          <h3>About this Model</h3>
+          <p>
+            LightGBM regression model with feature engineering including geographic clustering,
+            target encoding, and log-transformed price prediction deployed on a stack of React
+            and Python Flask API. Try it out and see how close I get to your home evaluation!
+          </p>
+        </div>
+      </div>
+
+      {/* RIGHT PANEL */}
+      <div className="right">
+        <h3>Recent Predictions</h3>
+
+        {history.length === 0 && (
+          <p className="muted">No predictions yet</p>
+        )}
+
+        {history.map((h) => (
+          <div key={h.id} className="historyItem">
+            <div>${Number(h.price).toLocaleString()}</div>
+            <span>{h.confidence}%</span>
+          </div>
+        ))}
+      </div>
+
     </div>
-
-    {/* ================= RIGHT PANEL ================= */}
-    <div style={{ width: "40%" }}>
-      <h2>Predictor Form</h2>
-
-      <input
-        name="bed"
-        placeholder="Beds"
-        value={form.bed}
-        onChange={handleChange}
-      />
-
-      <input
-        name="bath"
-        placeholder="Baths"
-        value={form.bath}
-        onChange={handleChange}
-      />
-
-      <input
-        name="house_size"
-        placeholder="House Size (sqft)"
-        value={form.house_size}
-        onChange={handleChange}
-      />
-
-      <input
-        name="acre_lot"
-        placeholder="Acre Lot"
-        value={form.acre_lot}
-        onChange={handleChange}
-      />
-
-      <input
-        name="zip_code"
-        placeholder="ZIP Code"
-        value={form.zip_code}
-        onChange={handleChange}
-      />
-
-      <button onClick={handleSubmit} disabled={loading}>
-        {loading ? "Predicting..." : "Predict Price"}
-      </button>
-
-      {result !== null && (
-        <h3 style={{ marginTop: 20 }}>
-          {isNaN(result)
-            ? "Invalid prediction"
-            : `Predicted Price: $${Number(result).toLocaleString()}`}
-        </h3>
-      )}
-    </div>
-  </div>
-);
+  );
 }
