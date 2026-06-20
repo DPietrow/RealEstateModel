@@ -282,6 +282,17 @@ button:disabled {
   border: 1px solid #d1d5db;
 }
 
+.app.light .brand h2,
+.app.light .hero h2,
+.app.light .card h3,
+.app.light .right h3 {
+  color: #0f172a;   /* slate-900 */
+}
+
+.app.light .brand p {
+  color: #475569;   /* slate-600 */
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
   .app {
