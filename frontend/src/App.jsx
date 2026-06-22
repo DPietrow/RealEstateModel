@@ -108,7 +108,7 @@ export default function App() {
 
         {/* LINKS */}
         <div className="links">
-          <a href="https://github.com/DPietrow/RealEstateModel/tree/dev">GitHub</a>
+          <a href="https://github.com/DPietrow/RealEstateModel/tree/main">GitHub</a>
           <a href="https://www.linkedin.com/in/david-pietrow/">LinkedIn</a>
         </div>
       </div>
