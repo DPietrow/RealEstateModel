@@ -164,13 +164,27 @@ export default function App() {
 
         {/* DESCRIPTION */}
         <div className="card">
-          <h3>About this Model</h3>
-          <p>
-            LightGBM regression model with feature engineering including geographic clustering,
-            target encoding, and log-transformed price prediction deployed on a stack of React
-            and Python Flask API. Try it out and see how close I get to your home evaluation!
-          </p>
+        <h3>About This Model</h3>
+
+        <p style={{ marginBottom: "16px" }}>
+          LightGBM regression model with feature engineering including geographic
+          clustering, target encoding, and log-transformed price prediction,
+          deployed using a React frontend and Python Flask API. Try it out and see
+          how close I get to your home's valuation!
+        </p>
+
+        <p style={{ marginBottom: "16px" }}>
+          Please note that this application is hosted on Render's free tier.
+          Predictions may take up to a minute to be returned to the webpage,
+          especially after periods of inactivity.
+        </p>
+
+        <p>
+          For a more in-depth analysis of the project, I invite you to review the
+          README in the GitHub repository.
+        </p>
         </div>
+
       </div>
 
       {/* RIGHT PANEL */}
