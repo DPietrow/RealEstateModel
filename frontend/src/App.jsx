@@ -164,7 +164,11 @@ export default function App() {
 
         {/* DESCRIPTION */}
         <div className="card">
-        <h3>About This Model</h3>
+        <h3
+        style={{
+          marginBottom: "20px"
+        }}
+        >About This Model</h3>
 
         <p style={{ marginBottom: "16px" }}>
           LightGBM regression model with feature engineering including geographic
